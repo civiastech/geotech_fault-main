@@ -59,7 +59,7 @@ feedback_data = {
         "recommendation": "Visual inspection and monitor for propagation.",
         "priority": "Low"
     },
-    "vertical crack gba": {
+    "vertical crack gba 1": {
         "score": 2,
         "severity": "Low",
         "recommendation": "Seal the gap, Visual inspection and monitor for propagation.",

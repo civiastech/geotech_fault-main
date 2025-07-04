@@ -5,7 +5,7 @@ feedback_data = {
         "recommendation": "Replace missing",
         "priority": "Medium"
     },
-    "Crack on Asphalt": {
+    "crack on asphalt": {
         "score": 2,
         "severity": "Low",
         "recommendation": "Visual inspection and monitor for propagation.",

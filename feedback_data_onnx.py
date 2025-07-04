@@ -41,7 +41,7 @@ feedback_data = {
         "recommendation": "Trim vegetation and verify slope drainage capacity.",
         "priority": "Low"
     },
-    "vertical crack wall": {
+    "vertical crack wall 1": {
         "score": 3,
         "severity": "Moderate",
         "recommendation": "Seal the gap, Visual inspection and monitor for propagation.",

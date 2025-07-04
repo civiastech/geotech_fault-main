@@ -53,7 +53,17 @@ if uploaded_file is not None:
         try:
             onnx_inputs = {input_name: img_processed}
             onnx_outputs = session.run([output_name], onnx_inputs)
-            predictions = onnx_outputs[0].transpose(0, 2, 1)[0]
+
+            # Check output validity
+            if not onnx_outputs or onnx_outputs[0] is None or len(onnx_outputs[0]) == 0:
+                st.warning("⚠️ ONNX model returned empty output. No predictions made.")
+                st.stop()
+
+            try:
+                predictions = onnx_outputs[0].transpose(0, 2, 1)[0]
+            except Exception as e:
+                st.error(f"❌ Failed to process ONNX output shape: {e}")
+                st.stop()
 
             confidence_threshold = 0.25
             boxes = predictions[:, :4]
@@ -65,13 +75,18 @@ if uploaded_file is not None:
             class_ids = class_ids[valid_detections]
             confidences = confidences[valid_detections]
 
+            if len(boxes) == 0:
+                st.warning("⚠️ No valid detections above the confidence threshold.")
+                st.stop()
+
             original_width, original_height = image.size
             img_size_model = 640
 
-            boxes[:, 0] = (boxes[:, 0] - boxes[:, 2] / 2) * (original_width / img_size_model)
-            boxes[:, 1] = (boxes[:, 1] - boxes[:, 3] / 2) * (original_height / img_size_model)
-            boxes[:, 2] = (boxes[:, 0] + boxes[:, 2]) * (original_width / img_size_model)
-            boxes[:, 3] = (boxes[:, 1] + boxes[:, 3]) * (original_height / img_size_model)
+            # Convert from center_x, center_y, width, height to x_min, y_min, x_max, y_max and scale to original image size
+            boxes[:, 0] = (boxes[:, 0] - boxes[:, 2] / 2) * (original_width / img_size_model)  # x_min
+            boxes[:, 1] = (boxes[:, 1] - boxes[:, 3] / 2) * (original_height / img_size_model) # y_min
+            boxes[:, 2] = (boxes[:, 0] + boxes[:, 2] * (original_width / img_size_model))      # x_max
+            boxes[:, 3] = (boxes[:, 1] + boxes[:, 3] * (original_height / img_size_model))     # y_max
 
             draw = ImageDraw.Draw(image)
             colors = {}
@@ -109,7 +124,6 @@ if uploaded_file is not None:
                 x_max = int(box[2])
                 y_max = int(box[3])
 
-                # Append detection + feedback data
                 results_data.append({
                     "Image Filename": uploaded_file.name,
                     "Fault": class_name,
@@ -124,10 +138,8 @@ if uploaded_file is not None:
                     "Y_max": y_max
                 })
 
-            # Show final annotated image
             st.image(image, caption="Detected Results", use_column_width=True)
 
-            # Download annotated image
             buf = BytesIO()
             image.save(buf, format="PNG")
             byte_im = buf.getvalue()
@@ -139,7 +151,6 @@ if uploaded_file is not None:
                 mime="image/png"
             )
 
-            # Download CSV feedback + metadata
             if results_data:
                 df = pd.DataFrame(results_data)
                 csv = df.to_csv(index=False).encode('utf-8')

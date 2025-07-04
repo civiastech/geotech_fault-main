@@ -30,9 +30,13 @@ def load_onnx_model(path):
 session, input_name, output_name = load_onnx_model(ONNX_MODEL_PATH)
 
 CLASS_NAMES = [
-    'block loss', 'crack on ashpat', 'long crack', 'opening on the wall',
-    'vegetation on wall', 'vegetation on slope', 'vertical crack',
-    'wall deformation', 'bad foundation', 'corrosion', 'slope deformation'
+
+    'Basket Corrosion Wall', 'Broken Basket', 'Bulging Face', 'Crack on Asphalt',
+    'Deformation Wall', 'Expose foundation wall', 'Interface Opening', 'Long Crack GBA',
+    'Long Crack Wall 1', 'Long Crack Wall 2', 'Mesh Crack Wall', 'Misalignment of wall',
+    'Opening on GBA', 'Slope Deformation', 'Vegetation on Slope', 'Vegetation on Wall',
+    'Vertical Crack GBA 1', 'Vertical Crack GBA 2', 'Vertical Crack Wall 1', 'Vertical Crack Wall 2'
+
 ]
 
 if uploaded_file is not None:

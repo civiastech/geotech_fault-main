@@ -17,6 +17,12 @@ feedback_data = {
         "recommendation": "Visual inspection and monitor for propagation.",
         "priority": "Low"
     },
+    "Interface Opening": {
+        "score": 3,
+        "severity": "Moderate",
+        "recommendation": "Seal the gap immediately and assess wall integrity.",
+        "priority": "Medium"
+        },
     "opening on the wall": {
         "score": 3,
         "severity": "Moderate",

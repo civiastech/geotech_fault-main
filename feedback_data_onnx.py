@@ -59,7 +59,13 @@ feedback_data = {
         "recommendation": "Seal the gap, Visual inspection and monitor for propagation.",
         "priority": "Medium"
     },
-    "long crack wall": {
+    "long crack wall 1": {
+        "score": 3,
+        "severity": "Moderate",
+        "recommendation": "Seal the gap, Visual inspection and monitor for propagation.",
+        "priority": "Medium"
+      },
+    "long crack wall 2": {
         "score": 3,
         "severity": "Moderate",
         "recommendation": "Seal the gap, Visual inspection and monitor for propagation.",

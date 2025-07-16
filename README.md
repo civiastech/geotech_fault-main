@@ -25,7 +25,6 @@ This Streamlit app uses a trained YOLOv8 model to detect structural/geotechnical
 ├── app.py                 # Streamlit UI
 ├── model_inference.py     # YOLOv8 inference (PyTorch + ONNX)
 ├── feedback_data.py       # Fault metadata (recommendations, severity, etc.)
-├── parser.py              # Parses model predictions
 ├── recommendation.py      # Maps faults to recommendations
 ├── requirements.txt       # Dependencies
 └── README.md              # Project info
